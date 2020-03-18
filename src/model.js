@@ -20,7 +20,8 @@ const CountrySchema = new Schema({
 const TodaySchema = new Schema({
   createdAt: {
     type: Date,
-    default: new Date()
+    default: new Date(),
+    select: false
   },
   country: String,
   cases: Number,

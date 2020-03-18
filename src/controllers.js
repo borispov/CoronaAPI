@@ -10,7 +10,7 @@ const single = async (req, res, next) => {
 
   try {
     const { country } = req.params
-    const data = await CountryModel.find({ location: capitalize(country) })
+    const data = await CountryModel.find({ location: capitalize(country) }, {'_id': 0, '__v': 0, 'createdAt': 0})
     return res.status(200).json(data)
   } catch(e) {
     return res.status(404).json({ message: e })
