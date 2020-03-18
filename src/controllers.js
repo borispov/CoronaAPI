@@ -23,6 +23,7 @@ const worldOverTime = async (req, res, next) => {
 
   try {
     const data = await CountryModel.find({ location: 'World' })
+    console.log(data);
     return res.status(200).json(data)
   } catch(e) {
       return res.status(404).json({ message: e })
