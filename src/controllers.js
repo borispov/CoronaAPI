@@ -17,6 +17,16 @@ const single = async (req, res, next) => {
   }
 }
 
+const getCountries = async (req, res, next) => {
+  try {
+    const data = await CountryModel.find({})
+    const countries = [...new Set(data.map(a => a.location))]
+    return res.status(404).json({ data: countries })
+  } catch(e) {
+    return res.status(404).json({ message: e })
+  }
+}
+
 const worldOverTime = async (req, res, next) => {
 
   console.log('client attempts to access: /v1/alltime/ route');
@@ -66,5 +76,6 @@ async function addTodayCountry(data, cn) {
 module.exports = {
   single,
   worldOverTime,
-  todayCountry
+  todayCountry,
+  getCountries
 }

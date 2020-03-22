@@ -1,9 +1,3 @@
-/* node_modules/ */
-/*  */
-/* getData.sh */
-/*  */
-/* .gitignore */
-/*  */
-/* .env */
-/*  */
-/* full_data.csv */
+node_modules/
+
+.gitignore
