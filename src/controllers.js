@@ -21,7 +21,7 @@ const getCountries = async (req, res, next) => {
   try {
     const data = await CountryModel.find({})
     const countries = [...new Set(data.map(a => a.location))]
-    return res.status(404).json({ data: countries })
+    return res.status(200).json({ data: countries })
   } catch(e) {
     return res.status(404).json({ message: e })
   }
