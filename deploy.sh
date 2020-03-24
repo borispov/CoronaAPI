@@ -23,9 +23,9 @@ git pull
 git checkout master
 git pull origin master
 
-rm -rf node_modules/
+# rm -rf node_modules/
 
-npm install --production
+# npm install --production
 
 npm run build
 
