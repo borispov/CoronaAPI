@@ -1,6 +1,14 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
+const ResourceSchema = new Schema({
+  category: { type: String, required: true },
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  link: { type: String, required: true },
+  createdAt: { type: Date, default: new Date() }
+})
+
 const DaySchema = new Schema({
   day: { type: String },
   confirmed: { type: Number }
@@ -34,8 +42,10 @@ const TodaySchema = new Schema({
 
 const TodayModel = mongoose.model('today', TodaySchema);
 const CountryModel = mongoose.model('country', CountrySchema)
+const ResourceModel = mongoose.model('resource', ResourceSchema)
 
 module.exports = {
   TodayModel,
-  CountryModel
+  CountryModel,
+  ResourceModel
 }

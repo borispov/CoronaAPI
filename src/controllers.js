@@ -1,9 +1,21 @@
 const mongoose = require('mongoose');
 const fetch = require('node-fetch');
-const { CountryModel, TodayModel } = require('./model');
+const { CountryModel, TodayModel, ResourceModel } = require('./model');
 
 const { capitalize, getCountryStats, sortCountryObj, isWorld } = require('./utils');
 
+const getResources = async (req, res, next) => {
+  console.log('client reaching resources file');
+
+  try {
+    const data = await ResourceModel.find({}, {'_id': 0, '__v': 0, 'createdAt': 0}).sort({ category: 1 })
+    return res.status(200).json(data)
+  } catch(e) {
+    console.log('error occured', e);
+
+    res.status(404).json({ message: e })
+  }
+}
 
 const single = async (req, res, next) => {
   console.log('client attempts to access: /v1/alltime/:country route');
@@ -77,5 +89,6 @@ module.exports = {
   single,
   worldOverTime,
   todayCountry,
-  getCountries
+  getCountries,
+  getResources
 }
