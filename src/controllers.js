@@ -8,10 +8,8 @@ const getResources = async (req, res, next) => {
   console.log('client reaching resources file');
 
   try {
-    const health = await ResourceModel.find({ category: 'health' }, {'_id': 0, '__v': 0, 'createdAt': 0}).sort({ category: 1 })
-    const education = await ResourceModel.find({ category: 'education' }, {'_id': 0, '__v': 0, 'createdAt': 0}).sort({ category: 1 })
-    const data = { health, education }
-    console.log(data);
+    const data = await ResourceModel.find( { category: { $ne: '' } }, {'_id': 0, '__v': 0, 'createdAt': 0}).sort({ category: 1 })
+    console.log(' Accessed data array Of: ', data.length);
     return res.status(200).json(data)
   } catch(e) {
     console.log('error occured', e);
