@@ -31,6 +31,11 @@ const TodaySchema = new Schema({
     default: new Date(),
     select: false
   },
+  expireAt: {
+    type: Date,
+    default: new Date(),
+    index: { expires: 3600 }
+  },
   country: String,
   cases: Number,
   todayCases: Number,
