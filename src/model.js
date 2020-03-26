@@ -28,13 +28,8 @@ const CountrySchema = new Schema({
 const TodaySchema = new Schema({
   createdAt: {
     type: Date,
-    default: new Date(),
-    select: false
-  },
-  expireAt: {
-    type: Date,
-    default: new Date(),
-    index: { expires: 3600 }
+    default: Date.now,
+    expires: 3600
   },
   country: String,
   cases: Number,
@@ -46,6 +41,8 @@ const TodaySchema = new Schema({
 })
 
 const TodayModel = mongoose.model('today', TodaySchema);
+TodayModel.index({ "createdAt": 1 }, { expireAfterSeconds: 3600 })
+
 const CountryModel = mongoose.model('country', CountrySchema)
 const ResourceModel = mongoose.model('resource', ResourceSchema)
 
