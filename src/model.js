@@ -41,7 +41,7 @@ const TodaySchema = new Schema({
 })
 
 const TodayModel = mongoose.model('today', TodaySchema);
-TodayModel.index({ "createdAt": 1 }, { expireAfterSeconds: 3600 })
+TodaySchema.index({ "createdAt": 1 }, { expireAfterSeconds: 3600 })
 
 const CountryModel = mongoose.model('country', CountrySchema)
 const ResourceModel = mongoose.model('resource', ResourceSchema)
