@@ -12,5 +12,4 @@ Router.get('/v1/countries', getCountries)
 
 Router.get('/data/resources', getResources)
 
-
 module.exports = Router

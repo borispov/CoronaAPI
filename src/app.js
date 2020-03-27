@@ -18,9 +18,9 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// app.get('/', (req, res, next) => {
-//   res.redirect('htts://covid19.borisky.me:80')
-// })
+app.get('/coffee-break', (req, res, next) => {
+  res.send('Thanks, this feature will be added soon ... Much Appreciated')
+})
 
 app.use('/api', routes)
 
