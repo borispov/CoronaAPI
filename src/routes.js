@@ -1,6 +1,13 @@
 const express = require('express');
 const Router = express.Router();
-const { single, worldOverTime, todayCountry, getCountries, getResources } = require('./controllers');
+const {
+  single,
+  worldOverTime,
+  todayCountry,
+  getCountries,
+  getResources,
+  getNewsHeb
+} = require('./controllers');
 
 Router.get('/v1/alltime/', worldOverTime)
 
@@ -11,5 +18,9 @@ Router.get('/v1/today/:country', todayCountry)
 Router.get('/v1/countries', getCountries)
 
 Router.get('/data/resources', getResources)
+
+Router.get('/v1/news/heb', getNewsHeb)
+
+// Router.get('/v1/news/eng', getNews)
 
 module.exports = Router
