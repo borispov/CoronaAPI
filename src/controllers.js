@@ -82,12 +82,12 @@ const todayCountry = async (req, res, next) => {
   const redisKey = keys.countryToday + cn
 
   try {
-    let { data } = JSON.parse(await redis.get(redisKey))
+    let data = JSON.parse(await redis.get(redisKey))
     if ( !data ) {
-      let { data } = await F.getCountryStats(cn, redis, keys)
-      return res.status(200).json({ data })
+      let data = await F.getCountryStats(cn, redis, keys)
+      return res.status(200).json(data)
     }
-    return res.status(200).json({ data })
+    return res.status(200).json(data)
   } catch(error) {
     console.log(error);
     console.log('HIASDASD');
