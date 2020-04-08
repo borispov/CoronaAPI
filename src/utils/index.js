@@ -3,7 +3,8 @@ const API_URL = `https://corona.lmao.ninja/`
 
 
 const isWorld = cn => cn === 'world'
-const capitalize = str => str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)
+const cap = str => str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)
+const capitalize = str => str.split(' ').map(cap).join(' ')
 const lower = str => str.toLowerCase()
 const API_EXT = c => c === 'world' ? 'all/' : `countries/${c}`
 

@@ -47,6 +47,7 @@ const single = async (req, res, next) => {
   try {
     const { country } = req.params
     const data = await CountryModel.find({ location: capitalize(country) }, {'_id': 0, '__v': 0, 'createdAt': 0})
+    setTimeout(() => console.log(data), 1500)
     return res.status(200).json(data)
   } catch(e) {
     return res.status(404).json({ message: e })
@@ -121,6 +122,17 @@ const getNewsHeb = async (req, res, next) => {
 }
 
 
+const donateStream = async (req, res, next) => {
+
+  try {
+    const msg = req.body
+    console.log(msg);
+  } catch(e) {
+    return res.status(500).json({ message: 'Your Request Has not been processed'})
+  }
+}
+
+
 async function addTodayCountry(data, cn) {
   let obj = isWorld(cn)
     ? { ...data, country: 'world' }
@@ -136,5 +148,6 @@ module.exports = {
   todayCountry,
   getCountries,
   getResources,
-  getNewsHeb
+  getNewsHeb,
+  donateStream
 }
