@@ -127,6 +127,7 @@ const donateStream = async (req, res, next) => {
   try {
     const msg = req.body
     console.log(msg);
+    return res.status(200).json({ data: 'SOMETHING' })
   } catch(e) {
     return res.status(500).json({ message: 'Your Request Has not been processed'})
   }
