@@ -124,6 +124,8 @@ const getNewsHeb = async (req, res, next) => {
 
 const donateStream = async (req, res, next) => {
 
+  console.log('request has been made to Donate Stream API')
+
   try {
     const msg = req.body
     console.log(msg);

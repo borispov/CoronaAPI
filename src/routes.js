@@ -22,7 +22,7 @@ Router.get('/api/data/resources', getResources)
 
 Router.get('/api/v1/news/heb', getNewsHeb)
 
-Router.post('/', donateStream)
+Router.post('/donate/', donateStream)
 
 // Router.get('/v1/news/eng', getNews)
 
