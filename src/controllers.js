@@ -15,24 +15,31 @@ const redis = new Redis(
 const { keys } = config
 
 const execAll = () => {
-  F.newsHeb(keys, redis),
+  F.getCountryList(redis, keys),
   F.getCountryStats('israel', redis, keys),
   F.getCountryStats('world', redis, keys),
-  F.getWorldYesterday(redis, keys)
+  F.getWorldYesterday(redis, keys),
+  F.newsHeb(keys, redis)
 };
 
 // Executing On App Start 
 execAll();
 // Execute every 1800000 seconds, i.e 30 minutes
 setInterval(execAll, 900000);
+// Execute Once A Day
+// setInterval(() => F.getCountryList(redis, keys), 86400000)
 
 
 const { capitalize, getCountryStats, sortCountryObj, isWorld } = require('./utils');
 
 const worldYesterday = async (req, res, next) => {
   try {
-    const data = JSON.parse(await redis.get(keys.worldYesterday))
-    return res.status(200).json(data)
+    const countries = JSON.parse(await redis.get(keys.worldYesterday))
+    if (!data) {
+      let getDataNow = F.getCountryList(redis, keys)
+      return res.status(200).json(countries)
+    }
+    return res.status(200).json(countries)
   } catch(e) {
     return res.status(500).json({ message: 'Your Request Has not been processed'})
   }
@@ -66,9 +73,11 @@ const single = async (req, res, next) => {
 
 const getCountries = async (req, res, next) => {
   try {
-    const data = await CountryModel.find({})
-    const countries = [...new Set(data.map(a => a.location))]
-    return res.status(200).json({ data: countries })
+    const countries = JSON.parse(await redis.get(keys.countriesList))
+    if (!countries) {
+      return res.status(404).json({ message: e })
+    }
+    return res.status(200).json({ countries })
   } catch(e) {
     return res.status(404).json({ message: e })
   }
