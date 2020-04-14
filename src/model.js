@@ -1,6 +1,19 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
+const DonateSchema = new Schema({
+  message_id: String,
+  timestamp: String,
+  type: String,
+  is_public: Boolean,
+  from_name: String,
+  message: String,
+  amount: String,
+  url: String,
+})
+
+const DonateModel = mongoose.model('donation', DonateSchema)
+
 const ResourceSchema = new Schema({
   category: { type: String, required: true },
   title: { type: String, required: true },
@@ -49,5 +62,6 @@ const ResourceModel = mongoose.model('resource', ResourceSchema)
 module.exports = {
   TodayModel,
   CountryModel,
-  ResourceModel
+  ResourceModel,
+  DonateModel
 }
