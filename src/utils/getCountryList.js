@@ -9,7 +9,7 @@ const getCountryList = async (redis, keys) => {
     const stringify = JSON.stringify(countries)
     const redisKey = keys.countriesList
     redis.set(redisKey, stringify)
-    return countries
+    // return countries
     console.log('added country list to redis');
   } catch(e) {
     return null
