@@ -1,6 +1,6 @@
 const getNews = require('../robots/getNews');
 
-const newsHeb = async (keys, redis) => {
+const newsHeb = async (redis, keys) => {
 
   try {
     const israelHayom = await getNews('israelHayom')

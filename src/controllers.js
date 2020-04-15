@@ -6,6 +6,7 @@ const { getNews } = require('./robots/getNews');
 
 const F = require('./utils/F');
 
+
 const redis = new Redis(
   config.redis.host, {
   password: config.redis.password,
@@ -15,19 +16,26 @@ const redis = new Redis(
 const { keys } = config
 
 const execAll = () => {
-  F.getCountryList(redis, keys),
   F.getCountryStats('israel', redis, keys),
   F.getCountryStats('world', redis, keys),
   F.getWorldYesterday(redis, keys),
-  F.newsHeb(keys, redis)
+  F.newsHeb(redis, keys)
+  F.getAllCountriesStats(redis, keys)
 };
 
-// Executing On App Start 
+const execOnceAday = () => {
+  F.getCountryList(redis, keys)
+}
+// Executing On App Start
 execAll();
-// Execute every 1800000 seconds, i.e 30 minutes
-setInterval(execAll, 900000);
+execOnceAday();
+
+// Run Each X seconds between 10 and 25 minutes
+const random = (max,min) => Math.random() * (max - min) + min;
+setInterval(execAll, random(1500000,600000));
+
 // Execute Once A Day
-// setInterval(() => F.getCountryList(redis, keys), 86400000)
+setInterval(execOnceAday, 86400000)
 
 
 const { capitalize, getCountryStats, sortCountryObj, isWorld } = require('./utils');
@@ -103,14 +111,9 @@ const todayCountry = async (req, res, next) => {
 
   try {
     let data = JSON.parse(await redis.get(redisKey))
-    if ( !data ) {
-      data = await F.getCountryStats(cn, redis, keys)
-      return res.status(200).json(data)
-    }
     return res.status(200).json(data)
   } catch(error) {
     console.log(error);
-    console.log('HIASDASD');
     return res.status(500).json(error)
   }
 
