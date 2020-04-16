@@ -42,12 +42,8 @@ const { capitalize, getCountryStats, sortCountryObj, isWorld } = require('./util
 
 const worldYesterday = async (req, res, next) => {
   try {
-    const countries = JSON.parse(await redis.get(keys.worldYesterday))
-    if (!data) {
-      let getDataNow = F.getCountryList(redis, keys)
-      return res.status(200).json(countries)
-    }
-    return res.status(200).json(countries)
+    const data = JSON.parse(await redis.get(keys.worldYesterday))
+    return res.status(200).json(data)
   } catch(e) {
     return res.status(500).json({ message: 'Your Request Has not been processed'})
   }

@@ -1,5 +1,5 @@
 const axios = require('axios');
-const API_URL = `https://corona.lmao.ninja/`
+const API_URL = `https://corona.lmao.ninja/v2`
 const API_EXT = c => c === 'world' ? 'all/' : `countries/${c}`
 
 const getCountryStats = async (cn, redis, keys) => {
